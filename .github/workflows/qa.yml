@@ -1,0 +1,51 @@
+name: QA
+
+on:
+    - push
+
+jobs:
+    lint_test_build:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Begin QA...
+                uses: actions/checkout@v2
+
+            -
+                name: Use Node 12
+                uses: actions/setup-node@v1
+                with:
+                    node-version: 12.x
+
+            -
+                name: Use cached node_modules
+                uses: actions/cache@v1
+                with:
+                    path: node_modules
+                    key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+                    restore-keys: |
+                        nodeModules-
+
+            -
+                name: Install dependencies
+                env:
+                    CI: true
+                run: yarn install --frozen-lockfile
+
+            -
+                name: Lint
+                env:
+                    CI: true
+                run: yarn lint
+
+            -
+                name: Test
+                env:
+                    CI: true
+                run: yarn test
+
+            -
+                name: Build
+                env:
+                    CI: true
+                run: yarn build

@@ -1,0 +1,62 @@
+{
+    "name": "svg-stylizer",
+    "version": "0.1.0",
+    "license": "MIT",
+    "author": "Dávid Andor",
+    "maintainers": [
+        {
+            "name": "Dávid Andor",
+            "url": "https://gitgub.com/Sweetchuck"
+        }
+    ],
+    "homepage": "https://github.com/Sweetchuck/npm-svg-stylizer",
+    "bugs": {
+        "url": "https://github.com/Sweetchuck/npm-svg-stylizer/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Sweetchuck/npm-svg-stylizer.git"
+    },
+    "dependencies": {
+        "indent-string": "^4.0.0",
+        "lodash": "^4.17.15",
+        "xml-js": "^1.6.11"
+    },
+    "peerDependencies": {},
+    "devDependencies": {
+        "@babel/preset-typescript": "^7.9.0",
+        "@types/jest": "^25.2.1",
+        "@types/lodash": "^4.14.150",
+        "@typescript-eslint/eslint-plugin": "^2.31.0",
+        "@typescript-eslint/parser": "^2.31.0",
+        "eslint": "^7.0.0",
+        "husky": "^4.2.5",
+        "jest": "^26.0.1",
+        "ts-jest": "^25.5.1",
+        "tslib": "^1.11.2",
+        "typescript": "^3.8.3"
+    },
+    "module": "dist/svg-stylizer.esm.js",
+    "typings": "index.d.ts",
+    "main": "index.js",
+    "files": [
+        "LICENSE",
+        "index.js",
+        "index.d.ts",
+        "README.md",
+        "package.json"
+    ],
+    "engines": {
+        "node": ">=12"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn run lint && yarn run test"
+        }
+    },
+    "scripts": {
+        "lint": "eslint ./index.ts ./index.test.ts ./.eslintrc.js",
+        "test": "jest test",
+        "build": "tsc"
+    }
+}

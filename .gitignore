@@ -1,0 +1,11 @@
+
+/log/
+/node_modules/
+
+/**/*.d.ts
+!/types/**/*.d.ts
+/**/*.js
+/**/*.js.map
+
+/svg-stylizer-*.tgz
+/svg-stylizer-*.zip
