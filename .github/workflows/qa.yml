@@ -51,6 +51,7 @@ jobs:
             -
                 name: CodeCov
                 uses: codecov/codecov-action@v1
-                file: ./log/coverage/coverage-final.json
-                flags: unit
-                fail_ci_if_error: false
+                with:
+                    file: ./log/coverage/coverage-final.json
+                    flags: unit
+                    fail_ci_if_error: false
