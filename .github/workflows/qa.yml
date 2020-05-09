@@ -3,16 +3,6 @@ name: QA
 on:
     - push
 
-steps:
-    -
-        uses: actions/checkout@master
-    -
-        uses: codecov/codecov-action@v1
-        name: Unit
-        file: ./log/coverage/coverage-final.json
-        flags: unit
-        fail_ci_if_error: false
-
 jobs:
     build_lint_test:
         runs-on: ubuntu-latest
@@ -58,3 +48,9 @@ jobs:
                 env:
                     CI: true
                 run: yarn test
+            -
+                name: CodeCov
+                uses: codecov/codecov-action@v1
+                file: ./log/coverage/coverage-final.json
+                flags: unit
+                fail_ci_if_error: false
