@@ -4,7 +4,7 @@ on:
     - push
 
 jobs:
-    lint_test_build:
+    build_lint_test:
         runs-on: ubuntu-latest
         steps:
             -
@@ -23,14 +23,19 @@ jobs:
                 with:
                     path: node_modules
                     key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-                    restore-keys: |
-                        nodeModules-
+                    restore-keys: 'nodeModules-'
 
             -
                 name: Install dependencies
                 env:
                     CI: true
                 run: yarn install --frozen-lockfile
+
+            -
+                name: Build
+                env:
+                    CI: true
+                run: yarn build
 
             -
                 name: Lint
@@ -43,9 +48,3 @@ jobs:
                 env:
                     CI: true
                 run: yarn test
-
-            -
-                name: Build
-                env:
-                    CI: true
-                run: yarn build
