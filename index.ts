@@ -1,18 +1,20 @@
-import fs from 'fs';
-import xmlJs from 'xml-js';
-import _ from 'lodash';
-import indentString from "indent-string";
+import XmlJs from 'xml-js';
+
+const xmlJs = require('xml-js');
+const fs = require('fs');
+const _  = require('lodash');
+const indentString = require('indent-string');
 
 export default class SvgStylizer {
-    protected svg: xmlJs.Element = {};
+    protected svg: XmlJs.Element = {};
 
-    protected svgRootElement: xmlJs.Element = {};
+    protected svgRootElement: XmlJs.Element = {};
 
-    protected xmlToJsOptions: xmlJs.Options.XML2JS = {
+    protected xmlToJsOptions: XmlJs.Options.XML2JS = {
         compact: false,
     };
 
-    public jsToXmlOptions: xmlJs.Options.JS2XML = {
+    public jsToXmlOptions: XmlJs.Options.JS2XML = {
         indentAttributes: false,
         indentText: true,
         spaces: 4,
@@ -29,7 +31,7 @@ export default class SvgStylizer {
     }
 
     public initFromString(svgString: string): this {
-        this.svg = xmlJs.xml2js(svgString, this.xmlToJsOptions) as xmlJs.Element;
+        this.svg = xmlJs.xml2js(svgString, this.xmlToJsOptions) as XmlJs.Element;
         this.svgRootElement = {};
         const root = this.findFirstElementByType(this.svg.elements || [], 'element');
         if (typeof root !== 'undefined') {
@@ -45,7 +47,7 @@ export default class SvgStylizer {
         this.assertSvgRootElement();
         const elements = this.svgRootElement.elements || [];
         for (let i = elements.length - 1; i >= 0; i--) {
-            const element: xmlJs.Element = elements[i];
+            const element: XmlJs.Element = elements[i];
             if (element.type === 'element' && element.name === 'style') {
                 this.svgRootElement.elements?.splice(i, 1);
             }
@@ -54,7 +56,7 @@ export default class SvgStylizer {
         return this;
     }
 
-    public addCssFile(cssFileName: string, attributes: xmlJs.Attributes = {}): this {
+    public addCssFile(cssFileName: string, attributes: XmlJs.Attributes = {}): this {
         this.addCssString(
             fs.readFileSync(cssFileName, this.readFileOptions),
             attributes
@@ -63,7 +65,7 @@ export default class SvgStylizer {
         return this;
     }
 
-    public addCssString(cssString: string, attributes: xmlJs.Attributes = {}): this {
+    public addCssString(cssString: string, attributes: XmlJs.Attributes = {}): this {
         if (cssString === '') {
             return this;
         }
@@ -109,7 +111,7 @@ export default class SvgStylizer {
         return xmlJs.js2xml(this.svg, this.jsToXmlOptions);
     }
 
-    protected findStyleElement(attributes: xmlJs.Attributes): xmlJs.Element | undefined {
+    protected findStyleElement(attributes: XmlJs.Attributes): XmlJs.Element | undefined {
         for (const element of this.svgRootElement.elements || []) {
             if (
                 element.type === 'element' &&
@@ -123,7 +125,7 @@ export default class SvgStylizer {
         return undefined;
     }
 
-    protected findFirstElementByType(elements: Array<xmlJs.Element>, type: string): xmlJs.Element | undefined {
+    protected findFirstElementByType(elements: Array<XmlJs.Element>, type: string): XmlJs.Element | undefined {
         for (const element of elements) {
             if (element.type === type) {
                 return element;

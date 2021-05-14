@@ -11,6 +11,7 @@
         "outDir": ".",
         "typeRoots": [
             "./node_modules/@types/",
+            "./node_modules/xml-js/types/",
             "./types/"
         ],
         "baseUrl": "./",

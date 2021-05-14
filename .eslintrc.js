@@ -1,17 +1,19 @@
 module.exports = {
     root:     true,
     env: {
-        node: true
+        node: true,
     },
     settings: {},
     parser:   '@typescript-eslint/parser',
     plugins:  [
-        '@typescript-eslint'
+        '@typescript-eslint',
     ],
     extends:  [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
     ],
-    rules: {}
+    rules: {
+        '@typescript-eslint/no-var-requires': [0],
+    },
 };
