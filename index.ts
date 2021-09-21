@@ -1,9 +1,9 @@
 import XmlJs from 'xml-js';
+import indentString from 'indent-string';
 
 const xmlJs = require('xml-js');
 const fs = require('fs');
 const _  = require('lodash');
-const indentString = require('indent-string');
 
 export default class SvgStylizer {
     protected svg: XmlJs.Element = {};
