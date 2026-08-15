@@ -9,40 +9,28 @@ jobs:
         steps:
             -
                 name: Begin QA...
-                uses: actions/checkout@v2
-
+                uses: actions/checkout@v4
             -
                 name: Use Node 14
-                uses: actions/setup-node@v1
+                uses: actions/setup-node@v4
                 with:
                     node-version: 14.x
-
-            -
-                name: Use cached node_modules
-                uses: actions/cache@v1
-                with:
-                    path: node_modules
-                    key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-                    restore-keys: 'nodeModules-'
-
+                    cache: yarn
             -
                 name: Install dependencies
                 env:
                     CI: true
                 run: yarn install --frozen-lockfile
-
             -
                 name: Build
                 env:
                     CI: true
                 run: yarn build
-
             -
                 name: Lint
                 env:
                     CI: true
                 run: yarn lint
-
             -
                 name: Test
                 env:
@@ -50,8 +38,9 @@ jobs:
                 run: yarn test
             -
                 name: CodeCov
-                uses: codecov/codecov-action@v1
+                uses: codecov/codecov-action@v4
                 with:
-                    file: ./log/coverage/coverage-final.json
+                    token: ${{ secrets.CODECOV_TOKEN }}
+                    files: ./log/coverage/coverage-final.json
                     flags: unit
                     fail_ci_if_error: false
